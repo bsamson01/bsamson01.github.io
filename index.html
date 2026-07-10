@@ -1,207 +1,1107 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="SMBots - AI-powered chatbot solutions for SMEs. Automate customer service and streamline business operations with AI.">
-  <title>SMBots - AI Chatbot Solutions for SMEs</title>
+  <meta name="description" content="SMBots - AI-powered chatbot solutions for SMEs. Automate customer service, boost retention, and streamline business operations.">
+  <title>SMBots | Intelligent AI Chatbot Solutions for SMEs</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              900: '#0c4a6e',
+              glow: '#38bdf8'
+            },
+            accent: {
+              purple: '#8b5cf6',
+              cyan: '#06b6d4',
+              teal: '#0d9488'
+            },
+            dark: {
+              900: '#030712',
+              950: '#020617',
+              card: 'rgba(15, 23, 42, 0.45)'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts & Lucide Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Styles for Glassmorphism & Custom scrollbar -->
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+      background-color: #020617;
+      overflow-x: hidden;
     }
 
-    /* Navigation Bar */
-    nav {
-      background-color: #2d3436;
-      color: white;
-      padding: 1rem;
-      text-align: center;
+    /* Premium glassmorphism effects */
+    .glass-nav {
+      background: rgba(3, 7, 18, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: bold;
+    .glass-card {
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* Hero Section */
-    .hero {
-      background-color: #0984e3;
-      color: white;
-      padding: 100px 20px;
-      text-align: center;
+    .glass-card:hover {
+      background: rgba(20, 30, 55, 0.75);
+      border-color: rgba(56, 189, 248, 0.4);
+      box-shadow: 0 10px 30px -10px rgba(56, 189, 248, 0.25);
+      transform: translateY(-4px);
     }
 
-    .hero h1 {
-      font-size: 3rem;
-      margin: 0;
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    .hero p {
-      font-size: 1.2rem;
-      margin-top: 10px;
-      margin-bottom: 20px;
+    /* Animated background gradients */
+    .bg-grid-pattern {
+      background-size: 40px 40px;
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
     }
 
-    .hero button {
-      background-color: #00b894;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1rem;
-      cursor: pointer;
-      border-radius: 25px;
+    .glow-sphere {
+      filter: blur(120px);
+      mix-blend-mode: plus-lighter;
+      pointer-events: none;
     }
 
-    .hero button:hover {
-      background-color: #55efc4;
+    /* Hide scrollbar for standard view, style custom */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #020617;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #38bdf8;
     }
 
-    /* Services Section */
-    .services {
-      padding: 50px 20px;
-      background-color: #f5f5f5;
-      text-align: center;
+    /* Smooth typewriter cursor effect */
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .cursor-blink {
+      animation: blink 1s infinite;
     }
 
-    .services h2 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-      color: #2d3436;
+    /* Chat bubble smooth entry */
+    @keyframes slideUpIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-
-    .service-cards {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 30px;
-    }
-
-    .card {
-      background-color: white;
-      padding: 30px;
-      border-radius: 15px;
-      width: 300px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .card h3 {
-      color: #0984e3;
-      margin-bottom: 15px;
-    }
-
-    .card p {
-      color: #636e72;
-    }
-
-    /* Contact Section */
-    .contact {
-      padding: 50px 20px;
-      background-color: #dfe6e9;
-      text-align: center;
-    }
-
-    .contact h2 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
-
-    .contact form {
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    .contact form input,
-    .contact form textarea {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: none;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .contact form button {
-      background-color: #0984e3;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1rem;
-      cursor: pointer;
-      border-radius: 25px;
-    }
-
-    .contact form button:hover {
-      background-color: #74b9ff;
-    }
-
-    /* Footer */
-    footer {
-      background-color: #2d3436;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-
-    footer p {
-      margin: 0;
+    .chat-bubble {
+      animation: slideUpIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
   </style>
-</head>
-<body>
 
-  <!-- Navigation Bar -->
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#services">Services</a>
-    <a href="#contact">Contact</a>
+  <!-- GSAP & Three.js CDNs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body class="text-slate-100 antialiased overflow-x-hidden">
+
+  <!-- Interactive Background Canvas (Three.js) -->
+  <div id="canvas-container" class="fixed top-0 left-0 w-full h-full -z-10 opacity-70 pointer-events-none"></div>
+
+  <!-- Ambient Glowing Spheres -->
+  <div class="fixed top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-blue-600/10 glow-sphere -z-20"></div>
+  <div class="fixed bottom-[10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-purple-600/10 glow-sphere -z-20"></div>
+  <div class="fixed top-[40%] left-[30%] w-[40vw] h-[40vw] rounded-full bg-cyan-600/5 glow-sphere -z-20"></div>
+
+  <div class="bg-grid-pattern fixed inset-0 opacity-40 -z-20 pointer-events-none"></div>
+
+  <!-- Sticky Dynamic Navigation Bar -->
+  <nav class="glass-nav fixed top-0 left-0 w-full z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#home" class="flex items-center space-x-3 group">
+        <div class="p-2 bg-gradient-to-tr from-brand-500 to-accent-purple rounded-xl shadow-lg shadow-brand-500/25 group-hover:scale-110 transition-transform duration-300">
+          <i data-lucide="bot" class="w-6 h-6 text-white"></i>
+        </div>
+        <span class="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-brand-glow">
+          SMBots
+        </span>
+      </a>
+
+      <!-- Desktop Nav Menu -->
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="#home" class="text-sm font-medium text-slate-300 hover:text-brand-glow transition-colors duration-200">Home</a>
+        <a href="#services" class="text-sm font-medium text-slate-300 hover:text-brand-glow transition-colors duration-200">Services</a>
+        <a href="#chatbot" class="text-sm font-medium text-slate-300 hover:text-brand-glow transition-colors duration-200">Interactive Chat</a>
+        <a href="#impact" class="text-sm font-medium text-slate-300 hover:text-brand-glow transition-colors duration-200">Our Impact</a>
+        <a href="#contact" class="text-sm font-medium text-slate-300 hover:text-brand-glow transition-colors duration-200">Contact</a>
+      </div>
+
+      <!-- Action Button -->
+      <div class="hidden md:flex items-center space-x-4">
+        <a href="#chatbot" class="relative group inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium rounded-full group bg-gradient-to-br from-brand-500 to-accent-purple group-hover:from-brand-500 group-hover:to-accent-purple text-white focus:ring-4 focus:outline-none focus:ring-blue-800 transition-all">
+          <span class="relative px-5 py-2 transition-all ease-in duration-75 bg-slate-950 rounded-full group-hover:bg-opacity-0">
+            Try Simulator
+          </span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-300 hover:text-white focus:outline-none">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Nav Menu Panel -->
+    <div id="mobile-menu" class="hidden md:hidden glass-panel border-t border-slate-800/80 px-6 py-4 space-y-4">
+      <a href="#home" class="block text-slate-300 hover:text-brand-glow transition-colors">Home</a>
+      <a href="#services" class="block text-slate-300 hover:text-brand-glow transition-colors">Services</a>
+      <a href="#chatbot" class="block text-slate-300 hover:text-brand-glow transition-colors">Interactive Chat</a>
+      <a href="#impact" class="block text-slate-300 hover:text-brand-glow transition-colors">Our Impact</a>
+      <a href="#contact" class="block text-slate-300 hover:text-brand-glow transition-colors">Contact</a>
+      <a href="#chatbot" class="block w-full text-center py-2.5 bg-gradient-to-r from-brand-500 to-accent-purple text-white rounded-lg font-medium">Try Simulator</a>
+    </div>
   </nav>
 
   <!-- Hero Section -->
-  <section class="hero" id="home">
-    <h1>Welcome to SMBots</h1>
-    <p>AI-Powered Chatbot Solutions for SMEs</p>
-    <button>Get Started</button>
-  </section>
+  <section id="home" class="relative min-h-screen flex items-center justify-center pt-24 px-6 overflow-hidden">
+    <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
 
-  <!-- Services Section -->
-  <section class="services" id="services">
-    <h2>Our Services</h2>
-    <div class="service-cards">
-      <div class="card">
-        <h3>AI Chatbots for FAQs</h3>
-        <p>Automate responses to common customer questions like order tracking, store hours, and more.</p>
+      <!-- Text content -->
+      <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+        <!-- Badge -->
+        <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full glass-panel border border-brand-500/30 text-xs text-brand-glow font-medium animate-pulse">
+          <span class="w-2 h-2 rounded-full bg-brand-glow"></span>
+          <span>Next-Generation AI for Small & Medium Businesses</span>
+        </div>
+
+        <!-- Heading -->
+        <h1 class="hero-title text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.1] text-white">
+          Automate Conversations.<br>
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-glow via-cyan-400 to-accent-purple">
+            Scale Your Business.
+          </span>
+        </h1>
+
+        <!-- Subheading -->
+        <p class="hero-desc text-base sm:text-lg md:text-xl text-slate-300 max-w-xl mx-auto lg:mx-0 font-normal leading-relaxed">
+          Unlock 24/7 client engagement, automate FAQ workflows, and capture leads on autopilot with bespoke, intelligent chatbot solutions built specifically for SMEs.
+        </p>
+
+        <!-- CTA Action Buttons -->
+        <div class="hero-ctas flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+          <a href="#chatbot" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-brand-500 to-accent-purple hover:from-brand-600 hover:to-accent-purple text-white rounded-full font-semibold shadow-lg shadow-brand-500/20 hover:shadow-brand-500/45 transition-all duration-300 text-center flex items-center justify-center space-x-2">
+            <span>Interact with SMBots</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+          <a href="#services" class="w-full sm:w-auto px-8 py-4 bg-slate-900/60 hover:bg-slate-800 border border-slate-700 hover:border-slate-500 text-slate-200 hover:text-white rounded-full font-semibold transition-all duration-300 text-center">
+            Explore Services
+          </a>
+        </div>
       </div>
-      <div class="card">
-        <h3>WhatsApp Integration</h3>
-        <p>Seamlessly integrate AI chatbots with WhatsApp Business for smooth customer interactions.</p>
+
+      <!-- Hero Visual Interactive Card -->
+      <div class="hero-visual lg:col-span-5 flex justify-center relative">
+        <div class="relative w-full max-w-md">
+          <!-- Ambient element -->
+          <div class="absolute -inset-1.5 bg-gradient-to-r from-brand-500 to-accent-purple rounded-3xl blur opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+
+          <div class="relative glass-card rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl border border-slate-700/50">
+            <!-- Header bar -->
+            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+              <div class="flex items-center space-x-3">
+                <div class="relative">
+                  <div class="w-10 h-10 bg-gradient-to-br from-brand-glow to-accent-purple rounded-lg flex items-center justify-center text-white">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                  </div>
+                  <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-slate-900 rounded-full"></span>
+                </div>
+                <div>
+                  <h3 class="text-sm font-semibold text-white">Athena AI</h3>
+                  <p class="text-xs text-green-400">Live Assistant Demo</p>
+                </div>
+              </div>
+              <div class="flex space-x-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500/60"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-green-500/60"></span>
+              </div>
+            </div>
+
+            <!-- Chat display simulation -->
+            <div class="space-y-4 text-sm h-48 overflow-y-auto pr-1">
+              <div class="flex items-start space-x-2.5">
+                <div class="w-7 h-7 rounded-full bg-slate-800 flex items-center justify-center text-xs border border-slate-700 text-brand-glow">A</div>
+                <div class="bg-slate-800/80 text-slate-100 p-3 rounded-2xl rounded-tl-none max-w-[85%]">
+                  Hello! 👋 How can SMBots help your business today?
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-2.5 justify-end">
+                <div class="bg-brand-600/35 text-slate-100 p-3 rounded-2xl rounded-tr-none max-w-[85%] border border-brand-500/20">
+                  Can you automate my customer support?
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-2.5">
+                <div class="w-7 h-7 rounded-full bg-slate-800 flex items-center justify-center text-xs border border-slate-700 text-brand-glow">A</div>
+                <div class="bg-slate-800/80 text-slate-100 p-3 rounded-2xl rounded-tl-none max-w-[85%]">
+                  Absolutely! We automate up to <span class="text-brand-glow font-semibold">82%</span> of common queries on WhatsApp, web, & Facebook. 🚀
+                </div>
+              </div>
+            </div>
+
+            <!-- Simulated Input Field -->
+            <div class="pt-2">
+              <div class="bg-slate-950/80 rounded-xl px-4 py-3 border border-slate-800 flex items-center justify-between">
+                <span class="text-xs text-slate-400">Type something...</span>
+                <i data-lucide="send" class="w-4 h-4 text-slate-500"></i>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="card">
-        <h3>Custom Integrations</h3>
-        <p>Connect your chatbot with e-commerce platforms, CRMs, and other business tools to streamline operations.</p>
+
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-2 cursor-pointer z-10" onclick="document.getElementById('services').scrollIntoView({behavior: 'smooth'})">
+      <span class="text-xs text-slate-400 uppercase tracking-widest font-semibold">Scroll down</span>
+      <div class="w-6 h-10 border-2 border-slate-700 rounded-full p-1 flex justify-center">
+        <div class="w-1.5 h-3 bg-brand-glow rounded-full animate-bounce"></div>
       </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section class="contact" id="contact">
-    <h2>Contact Us</h2>
-    <form>
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <textarea rows="5" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
+  <!-- Services & Features Section -->
+  <section id="services" class="relative py-32 px-6">
+    <div class="max-w-7xl mx-auto space-y-16">
+
+      <!-- Section Header -->
+      <div class="text-center space-y-4 max-w-2xl mx-auto">
+        <h2 class="text-xs uppercase tracking-widest text-brand-glow font-bold">Unmatched Capabilities</h2>
+        <h3 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white">Intelligent Features & Services</h3>
+        <p class="text-slate-400 text-base sm:text-lg">
+          SMBots connects your communication channels to powerful, responsive, custom-trained AI systems that deliver immediate business value.
+        </p>
+      </div>
+
+      <!-- Services Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- Service Card 1 -->
+        <div class="service-card glass-card rounded-2xl p-8 space-y-6 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+              <i data-lucide="help-circle" class="w-6 h-6"></i>
+            </div>
+            <h4 class="text-xl font-bold text-white">AI FAQ Automation</h4>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Consistently answer store hours, orders, products, and general customer inquiries instantly. No latency, high reliability, completely custom conversational style.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-300">
+            <span>Automate 80%+ Queries</span>
+            <span class="text-blue-400 font-semibold">24/7/365</span>
+          </div>
+        </div>
+
+        <!-- Service Card 2 -->
+        <div class="service-card glass-card rounded-2xl p-8 space-y-6 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-accent-purple/10 border border-accent-purple/20 flex items-center justify-center text-accent-purple">
+              <i data-lucide="message-square" class="w-6 h-6"></i>
+            </div>
+            <h4 class="text-xl font-bold text-white">WhatsApp Integration</h4>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Reach customers on the world's most popular messaging application. Smooth official WhatsApp Business API connections with high deliverability.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-300">
+            <span>WhatsApp Official API</span>
+            <span class="text-accent-purple font-semibold">Instant Setup</span>
+          </div>
+        </div>
+
+        <!-- Service Card 3 -->
+        <div class="service-card glass-card rounded-2xl p-8 space-y-6 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+              <i data-lucide="cpu" class="w-6 h-6"></i>
+            </div>
+            <h4 class="text-xl font-bold text-white">Custom Integrations</h4>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Synchronize your chatbot dynamically with e-commerce systems (Shopify, WooCommerce), customer CRMs, and active scheduling calendars.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-300">
+            <span>Shopify / CRMs / Webhooks</span>
+            <span class="text-cyan-400 font-semibold">Bi-directional</span>
+          </div>
+        </div>
+
+        <!-- Service Card 4 -->
+        <div class="service-card glass-card rounded-2xl p-8 space-y-6 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400">
+              <i data-lucide="database" class="w-6 h-6"></i>
+            </div>
+            <h4 class="text-xl font-bold text-white">Advanced Knowledge Base</h4>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Upload company PDFs, manuals, links, or internal databases. Our advanced RAG technology parses information to produce contextually accurate, compliant responses.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-300">
+            <span>RAG Document Retrieval</span>
+            <span class="text-teal-400 font-semibold">Highly Secure</span>
+          </div>
+        </div>
+
+        <!-- Service Card 5 -->
+        <div class="service-card glass-card rounded-2xl p-8 space-y-6 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center text-yellow-400">
+              <i data-lucide="users" class="w-6 h-6"></i>
+            </div>
+            <h4 class="text-xl font-bold text-white">Lead Generation & Filtering</h4>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Qualify prospects before transferring them to human representatives. Collect names, phone numbers, budgets, and pre-qualifying data cleanly.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-300">
+            <span>CRM lead generation</span>
+            <span class="text-yellow-400 font-semibold">100% Automated</span>
+          </div>
+        </div>
+
+        <!-- Service Card 6 -->
+        <div class="service-card glass-card rounded-2xl p-8 space-y-6 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400">
+              <i data-lucide="bar-chart-3" class="w-6 h-6"></i>
+            </div>
+            <h4 class="text-xl font-bold text-white">Rich Dashboard Analytics</h4>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Examine live user chat transcripts, discover search intent trends, observe customer satisfaction scores, and adjust configuration on the fly.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-300">
+            <span>Admin Control Panel</span>
+            <span class="text-red-400 font-semibold">Real-time</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </section>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2024 SMBots. All Rights Reserved.</p>
+  <!-- Interactive Mock Chatbot Simulator -->
+  <section id="chatbot" class="relative py-32 px-6 bg-slate-950/40">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+      <!-- Explanatory Side -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full glass-panel border border-brand-500/30 text-xs text-brand-glow font-medium">
+          <i data-lucide="terminal" class="w-3.5 h-3.5"></i>
+          <span>Interactive Playground</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+          Test-Drive Our Conversational Experience
+        </h2>
+        <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
+          This live widget simulates our enterprise-grade AI chatbot system. Check how instantly and accurately it handles various SME scenarios. Select one of the preset prompts below or type your custom queries in the console.
+        </p>
+
+        <!-- Preset Prompts Grid -->
+        <div class="space-y-3 pt-4">
+          <h4 class="text-xs uppercase tracking-widest text-slate-400 font-bold">Suggested Scenarios:</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <button onclick="sendPresetMsg('Tell me about your services!')" class="p-3 text-left text-xs bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-brand-glow/40 rounded-xl text-slate-200 hover:text-white transition-all flex items-center space-x-2">
+              <i data-lucide="help-circle" class="w-4 h-4 text-brand-glow flex-shrink-0"></i>
+              <span class="truncate">What services do you offer?</span>
+            </button>
+            <button onclick="sendPresetMsg('Does it work with WhatsApp?')" class="p-3 text-left text-xs bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-brand-glow/40 rounded-xl text-slate-200 hover:text-white transition-all flex items-center space-x-2">
+              <i data-lucide="phone" class="w-4 h-4 text-brand-glow flex-shrink-0"></i>
+              <span class="truncate">Can it connect to WhatsApp?</span>
+            </button>
+            <button onclick="sendPresetMsg('How much money can my business save?')" class="p-3 text-left text-xs bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-brand-glow/40 rounded-xl text-slate-200 hover:text-white transition-all flex items-center space-x-2">
+              <i data-lucide="piggy-bank" class="w-4 h-4 text-brand-glow flex-shrink-0"></i>
+              <span class="truncate">How much money can I save?</span>
+            </button>
+            <button onclick="sendPresetMsg('How secure is the client data?')" class="p-3 text-left text-xs bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-brand-glow/40 rounded-xl text-slate-200 hover:text-white transition-all flex items-center space-x-2">
+              <i data-lucide="shield-check" class="w-4 h-4 text-brand-glow flex-shrink-0"></i>
+              <span class="truncate">Is the chatbot secure?</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Chat Simulator Widget -->
+      <div class="lg:col-span-7">
+        <div class="glass-card rounded-2xl overflow-hidden shadow-2xl border border-slate-700/60 max-w-2xl mx-auto flex flex-col h-[520px]">
+
+          <!-- Widget Header -->
+          <div class="px-6 py-4 bg-slate-900/80 border-b border-slate-800 flex items-center justify-between">
+            <div class="flex items-center space-x-3.5">
+              <div class="relative">
+                <div class="w-11 h-11 bg-gradient-to-tr from-brand-500 to-accent-purple rounded-xl flex items-center justify-center text-white">
+                  <i data-lucide="bot" class="w-6 h-6"></i>
+                </div>
+                <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-slate-950 rounded-full"></span>
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-white">SMBots AI Advisor</h3>
+                <p class="text-xs text-green-400 flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
+                  Online • Powered by SMBots core engine
+                </p>
+              </div>
+            </div>
+
+            <button onclick="clearChatHistory()" class="text-slate-400 hover:text-white text-xs flex items-center gap-1 px-2 py-1 rounded-md hover:bg-slate-800 transition-colors">
+              <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+              <span>Reset Chat</span>
+            </button>
+          </div>
+
+          <!-- Messages Area -->
+          <div id="chat-messages" class="flex-1 overflow-y-auto p-6 space-y-4 bg-slate-950/20">
+            <!-- Automated Welcome -->
+            <div class="flex items-start space-x-3 chat-bubble">
+              <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-xs text-brand-glow border border-slate-700 font-bold">SM</div>
+              <div class="space-y-1 max-w-[80%]">
+                <div class="bg-slate-800/80 text-slate-100 p-3.5 rounded-2xl rounded-tl-none text-sm leading-relaxed">
+                  Hi there! I am the <span class="text-brand-glow font-semibold">SMBots Advisor</span>. I'm here to show you how intelligent conversation can multiply your revenue and delight your clients.
+                </div>
+                <span class="text-[10px] text-slate-500 px-1">Just now</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Typing Indicator (hidden by default) -->
+          <div id="typing-indicator" class="hidden px-6 py-2 flex items-center space-x-2">
+            <div class="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-[10px] text-brand-glow border border-slate-700">SM</div>
+            <div class="bg-slate-800/50 px-3 py-2 rounded-xl rounded-tl-none flex space-x-1 items-center">
+              <span class="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style="animation-delay: 0.1s"></span>
+              <span class="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
+              <span class="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style="animation-delay: 0.3s"></span>
+            </div>
+          </div>
+
+          <!-- Widget Input Bar -->
+          <form id="chat-input-form" onsubmit="handleChatSubmit(event)" class="p-4 bg-slate-900/50 border-t border-slate-800/80 flex items-center space-x-3">
+            <input type="text" id="chat-user-input" placeholder="Type your question or choose a scenario..." required autocomplete="off" class="flex-1 bg-slate-950/80 border border-slate-800 focus:border-brand-glow focus:ring-1 focus:ring-brand-glow rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 outline-none transition-all duration-200">
+            <button type="submit" class="p-3 bg-gradient-to-r from-brand-500 to-accent-purple hover:from-brand-600 hover:to-accent-purple text-white rounded-xl shadow-lg shadow-brand-500/20 transition-all duration-200">
+              <i data-lucide="send" class="w-5 h-5"></i>
+            </button>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Impact & Stats Metrics Section -->
+  <section id="impact" class="relative py-32 px-6">
+    <div class="max-w-7xl mx-auto space-y-16">
+
+      <!-- Section Header -->
+      <div class="text-center space-y-4 max-w-2xl mx-auto">
+        <h2 class="text-xs uppercase tracking-widest text-brand-glow font-bold">Proven Performance</h2>
+        <h3 class="text-3xl sm:text-4xl font-extrabold text-white">Delivering Business Impact</h3>
+        <p class="text-slate-400 text-sm sm:text-base">
+          Our intelligent integrations have helped dozens of small and medium enterprises automate customer feedback and save hundreds of employee hours.
+        </p>
+      </div>
+
+      <!-- Metrics Counters -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <!-- Metric 1 -->
+        <div class="stat-card glass-card rounded-2xl p-8 text-center space-y-3">
+          <div class="inline-flex p-3 bg-blue-500/15 text-blue-400 rounded-xl">
+            <i data-lucide="clock" class="w-6 h-6"></i>
+          </div>
+          <h4 class="text-4xl font-extrabold text-white tracking-tight" id="stat-support-speed">15s</h4>
+          <p class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Average Response Time</p>
+          <p class="text-xs text-slate-500">Down from 4.5 hours on email support</p>
+        </div>
+
+        <!-- Metric 2 -->
+        <div class="stat-card glass-card rounded-2xl p-8 text-center space-y-3">
+          <div class="inline-flex p-3 bg-purple-500/15 text-purple-400 rounded-xl">
+            <i data-lucide="trending-up" class="w-6 h-6"></i>
+          </div>
+          <h4 class="text-4xl font-extrabold text-white tracking-tight" id="stat-cost-saving">80%</h4>
+          <p class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Support Costs Saved</p>
+          <p class="text-xs text-slate-500">Immediate relief for limited staff</p>
+        </div>
+
+        <!-- Metric 3 -->
+        <div class="stat-card glass-card rounded-2xl p-8 text-center space-y-3">
+          <div class="inline-flex p-3 bg-cyan-500/15 text-cyan-400 rounded-xl">
+            <i data-lucide="smile" class="w-6 h-6"></i>
+          </div>
+          <h4 class="text-4xl font-extrabold text-white tracking-tight" id="stat-customer-sat">94%</h4>
+          <p class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Customer CSAT Rating</p>
+          <p class="text-xs text-slate-500">Superbly natural, friendly dialogues</p>
+        </div>
+
+        <!-- Metric 4 -->
+        <div class="stat-card glass-card rounded-2xl p-8 text-center space-y-3">
+          <div class="inline-flex p-3 bg-teal-500/15 text-teal-400 rounded-xl">
+            <i data-lucide="activity" class="w-6 h-6"></i>
+          </div>
+          <h4 class="text-4xl font-extrabold text-white tracking-tight" id="stat-chats-handled">50k+</h4>
+          <p class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Active Chats Managed</p>
+          <p class="text-xs text-slate-500">High concurrency, rock-solid stability</p>
+        </div>
+
+      </div>
+
+      <!-- Trust Quote Block -->
+      <div class="glass-panel rounded-3xl p-8 sm:p-12 border border-slate-800/80 max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8 shadow-xl">
+        <div class="w-20 h-20 bg-gradient-to-tr from-brand-glow to-accent-purple rounded-2xl flex items-center justify-center text-white flex-shrink-0 shadow-lg shadow-brand-500/25">
+          <i data-lucide="quote" class="w-10 h-10"></i>
+        </div>
+        <div class="space-y-4 text-center md:text-left">
+          <blockquote class="text-lg text-slate-200 italic font-medium leading-relaxed">
+            "Implementing SMBots for our e-commerce site completely transformed how we address order status checks. It handles 90% of our daily queries automatically, allowing us to spend valuable time sourcing quality goods."
+          </blockquote>
+          <div>
+            <cite class="text-sm font-bold text-white not-italic">Marcus Thorne</cite>
+            <span class="text-xs text-slate-400 block">Co-Founder, Artisan Apparel</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Contact Section -->
+  <section id="contact" class="relative py-32 px-6 bg-slate-950/20">
+    <div class="max-w-4xl mx-auto space-y-12">
+
+      <!-- Header -->
+      <div class="text-center space-y-4">
+        <h2 class="text-xs uppercase tracking-widest text-brand-glow font-bold">Connect With Us</h2>
+        <h3 class="text-3xl sm:text-4xl font-extrabold text-white">Get in Touch Today</h3>
+        <p class="text-slate-400 max-w-xl mx-auto text-sm sm:text-base">
+          Ready to scale your SME support? Enter your parameters and we'll engineer a customized chatbot configuration plan for your system.
+        </p>
+      </div>
+
+      <!-- Glassmorphic Contact Form -->
+      <div class="glass-card rounded-3xl p-8 sm:p-10 shadow-2xl border border-slate-700/50">
+        <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Name -->
+            <div class="space-y-2">
+              <label for="contact-name" class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Your Name</label>
+              <input type="text" id="contact-name" placeholder="John Doe" required class="w-full bg-slate-950/80 border border-slate-800 focus:border-brand-glow focus:ring-1 focus:ring-brand-glow rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-600 outline-none transition-all duration-200">
+            </div>
+            <!-- Email -->
+            <div class="space-y-2">
+              <label for="contact-email" class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Business Email</label>
+              <input type="email" id="contact-email" placeholder="john@example.com" required class="w-full bg-slate-950/80 border border-slate-800 focus:border-brand-glow focus:ring-1 focus:ring-brand-glow rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-600 outline-none transition-all duration-200">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Business Type -->
+            <div class="space-y-2">
+              <label for="contact-industry" class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Industry Sector</label>
+              <select id="contact-industry" class="w-full bg-slate-950/80 border border-slate-800 focus:border-brand-glow focus:ring-1 focus:ring-brand-glow rounded-xl px-4 py-3 text-sm text-slate-300 outline-none transition-all duration-200">
+                <option value="ecommerce">E-Commerce & Retail</option>
+                <option value="services">Professional Services</option>
+                <option value="healthcare">Healthcare & Clinical</option>
+                <option value="hospitality">Hospitality & Dining</option>
+                <option value="other">Other Unique Field</option>
+              </select>
+            </div>
+            <!-- Target Channel -->
+            <div class="space-y-2">
+              <label for="contact-channel" class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Primary Channel</label>
+              <select id="contact-channel" class="w-full bg-slate-950/80 border border-slate-800 focus:border-brand-glow focus:ring-1 focus:ring-brand-glow rounded-xl px-4 py-3 text-sm text-slate-300 outline-none transition-all duration-200">
+                <option value="whatsapp">WhatsApp Integration</option>
+                <option value="website">Direct Website Widget</option>
+                <option value="instagram">Instagram / Messenger</option>
+                <option value="multi">All Multi-channel</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Message -->
+          <div class="space-y-2">
+            <label for="contact-message" class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Your Message</label>
+            <textarea id="contact-message" rows="4" placeholder="Tell us about your support bottlenecks and what you hope to automate..." required class="w-full bg-slate-950/80 border border-slate-800 focus:border-brand-glow focus:ring-1 focus:ring-brand-glow rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-600 outline-none transition-all duration-200"></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="pt-2">
+            <button type="submit" class="w-full py-4 bg-gradient-to-r from-brand-500 to-accent-purple hover:from-brand-600 hover:to-accent-purple text-white font-bold rounded-xl shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 transition-all duration-300 flex items-center justify-center space-x-2">
+              <span>Send Message & Book Consultation</span>
+              <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </form>
+
+        <!-- Dynamic Form Success Overlay (Hidden) -->
+        <div id="contact-success" class="hidden flex flex-col items-center justify-center text-center space-y-4 py-12">
+          <div class="w-16 h-16 bg-green-500/10 border border-green-500/30 rounded-full flex items-center justify-center text-green-400 animate-bounce">
+            <i data-lucide="check" class="w-8 h-8"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-white">Message Dispatched!</h3>
+          <p class="text-slate-300 text-sm max-w-sm">
+            Thank you for reaching out. An intelligent system planner will review your details and correspond in under 24 business hours.
+          </p>
+          <button onclick="resetContactForm()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded-xl border border-slate-700 hover:border-slate-500 transition-all">
+            Submit Another Query
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Modern Dark Footer -->
+  <footer class="bg-slate-950/90 border-t border-slate-900 py-16 px-6 relative z-10">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+
+      <!-- Brand Segment -->
+      <div class="md:col-span-5 space-y-6">
+        <a href="#home" class="flex items-center space-x-3">
+          <div class="p-2 bg-gradient-to-tr from-brand-500 to-accent-purple rounded-xl flex items-center justify-center">
+            <i data-lucide="bot" class="w-6 h-6 text-white"></i>
+          </div>
+          <span class="text-xl font-bold text-white tracking-tight">SMBots</span>
+        </a>
+        <p class="text-slate-400 text-sm max-w-sm leading-relaxed">
+          Pioneering context-aware conversational artificial intelligence for local shops, medium brands, and multi-location companies. Automated, safe, and effective.
+        </p>
+        <div class="flex space-x-4">
+          <a href="#" class="p-2 bg-slate-900 border border-slate-800 hover:border-slate-500 text-slate-400 hover:text-white rounded-lg transition-colors">
+            <i data-lucide="twitter" class="w-4 h-4"></i>
+          </a>
+          <a href="#" class="p-2 bg-slate-900 border border-slate-800 hover:border-slate-500 text-slate-400 hover:text-white rounded-lg transition-colors">
+            <i data-lucide="github" class="w-4 h-4"></i>
+          </a>
+          <a href="#" class="p-2 bg-slate-900 border border-slate-800 hover:border-slate-500 text-slate-400 hover:text-white rounded-lg transition-colors">
+            <i data-lucide="linkedin" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Links Column 1 -->
+      <div class="md:col-span-3 space-y-4">
+        <h4 class="text-xs uppercase tracking-wider text-slate-300 font-bold">Capabilities</h4>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="#services" class="text-slate-400 hover:text-white transition-colors">AI FAQ Engine</a></li>
+          <li><a href="#services" class="text-slate-400 hover:text-white transition-colors">WhatsApp Business Suite</a></li>
+          <li><a href="#services" class="text-slate-400 hover:text-white transition-colors">Sales Funnel Triggers</a></li>
+          <li><a href="#services" class="text-slate-400 hover:text-white transition-colors">Secure Custom CRM APIs</a></li>
+        </ul>
+      </div>
+
+      <!-- Links Column 2 -->
+      <div class="md:col-span-4 space-y-6">
+        <h4 class="text-xs uppercase tracking-wider text-slate-300 font-bold">Subscribe to AI Trends</h4>
+        <p class="text-slate-400 text-sm leading-relaxed">
+          Stay informed with monthly hacks, workflow templates, and strategies specifically designed to streamline SME support.
+        </p>
+        <form onsubmit="event.preventDefault(); alert('Subscribed successfully!')" class="flex gap-2">
+          <input type="email" placeholder="Your work email..." required class="flex-1 bg-slate-900 border border-slate-800 focus:border-brand-glow rounded-xl px-4 py-2.5 text-sm text-slate-100 placeholder-slate-600 outline-none">
+          <button type="submit" class="px-5 py-2.5 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl transition-all">
+            Join
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- Sub-footer -->
+    <div class="max-w-7xl mx-auto pt-8 mt-12 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
+      <p>&copy; 2024 SMBots. Crafted with intelligent precision. All Rights Reserved.</p>
+      <div class="flex space-x-6 mt-4 sm:mt-0">
+        <a href="#" class="hover:text-slate-300 transition-colors">Terms of Use</a>
+        <a href="#" class="hover:text-slate-300 transition-colors">Privacy Charter</a>
+      </div>
+    </div>
   </footer>
+
+  <!-- Script Modules (ThreeJS, GSAP, Custom Simulator, and Forms) -->
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Responsive Mobile Menu
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu on clicking any link
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // -------------------------------------------------------------
+    // Three.js Interactive Particle Field Setup
+    // -------------------------------------------------------------
+    const canvasContainer = document.getElementById('canvas-container');
+    let scene, camera, renderer, particleGeometry, particleSystem, connectionGeometry, connectionSegments;
+    const maxParticles = 120;
+    const particlePositions = new Float32Array(maxParticles * 3);
+    const particleVelocities = [];
+
+    function initThree() {
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 1, 1000);
+      camera.position.z = 160;
+
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      canvasContainer.appendChild(renderer.domElement);
+
+      // Create random positions & velocities
+      for (let i = 0; i < maxParticles; i++) {
+        particlePositions[i * 3] = (Math.random() - 0.5) * 350;
+        particlePositions[i * 3 + 1] = (Math.random() - 0.5) * 350;
+        particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 200;
+
+        particleVelocities.push({
+          x: (Math.random() - 0.5) * 0.4,
+          y: (Math.random() - 0.5) * 0.4,
+          z: (Math.random() - 0.5) * 0.4
+        });
+      }
+
+      particleGeometry = new THREE.BufferGeometry();
+      particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+
+      // Point material (beautiful soft cyan-blue glowing circle)
+      const pMaterial = new THREE.PointsMaterial({
+        color: 0x38bdf8,
+        size: 3.2,
+        transparent: true,
+        opacity: 0.7,
+        blending: THREE.AdditiveBlending
+      });
+
+      particleSystem = new THREE.Points(particleGeometry, pMaterial);
+      scene.add(particleSystem);
+
+      // Dynamic Line Segments connecting close nodes
+      const lineMaterial = new THREE.LineBasicMaterial({
+        color: 0x8b5cf6,
+        transparent: true,
+        opacity: 0.18,
+        blending: THREE.AdditiveBlending
+      });
+
+      const segmentPositions = new Float32Array(maxParticles * maxParticles * 6);
+      connectionGeometry = new THREE.BufferGeometry();
+      connectionGeometry.setAttribute('position', new THREE.BufferAttribute(segmentPositions, 3));
+      connectionSegments = new THREE.LineSegments(connectionGeometry, lineMaterial);
+      scene.add(connectionSegments);
+    }
+
+    // Interactivity state
+    const pointer = { x: 0, y: 0, currentX: 0, currentY: 0 };
+    window.addEventListener('mousemove', (e) => {
+      pointer.x = (e.clientX - window.innerWidth / 2) * 0.12;
+      pointer.y = (e.clientY - window.innerHeight / 2) * 0.12;
+    });
+
+    // Touch interaction
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches.length > 0) {
+        pointer.x = (e.touches[0].clientX - window.innerWidth / 2) * 0.12;
+        pointer.y = (e.touches[0].clientY - window.innerHeight / 2) * 0.12;
+      }
+    });
+
+    // Animation Loop
+    function animateThree() {
+      requestAnimationFrame(animateThree);
+
+      // Smooth interpolation for camera parallax
+      pointer.currentX += (pointer.x - pointer.currentX) * 0.05;
+      pointer.currentY += (pointer.y - pointer.currentY) * 0.05;
+
+      camera.position.x += (pointer.currentX - camera.position.x) * 0.04;
+      camera.position.y += (-pointer.currentY - camera.position.y) * 0.04;
+      camera.lookAt(scene.position);
+
+      const positionsArray = particleGeometry.attributes.position.array;
+      const lineArray = connectionGeometry.attributes.position.array;
+      let lineCounter = 0;
+
+      for (let i = 0; i < maxParticles; i++) {
+        // Move particle by velocity
+        positionsArray[i * 3] += particleVelocities[i].x;
+        positionsArray[i * 3 + 1] += particleVelocities[i].y;
+        positionsArray[i * 3 + 2] += particleVelocities[i].z;
+
+        // Boundary bounce check
+        if (Math.abs(positionsArray[i * 3]) > 180) particleVelocities[i].x *= -1;
+        if (Math.abs(positionsArray[i * 3 + 1]) > 180) particleVelocities[i].y *= -1;
+        if (Math.abs(positionsArray[i * 3 + 2]) > 150) particleVelocities[i].z *= -1;
+      }
+
+      particleGeometry.attributes.position.needsUpdate = true;
+
+      // Draw lines between proximate nodes
+      for (let i = 0; i < maxParticles; i++) {
+        const x1 = positionsArray[i * 3];
+        const y1 = positionsArray[i * 3 + 1];
+        const z1 = positionsArray[i * 3 + 2];
+
+        for (let j = i + 1; j < maxParticles; j++) {
+          const x2 = positionsArray[j * 3];
+          const y2 = positionsArray[j * 3 + 1];
+          const z2 = positionsArray[j * 3 + 2];
+
+          const dx = x1 - x2;
+          const dy = y1 - y2;
+          const dz = z1 - z2;
+          const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+
+          if (dist < 48) {
+            lineArray[lineCounter++] = x1;
+            lineArray[lineCounter++] = y1;
+            lineArray[lineCounter++] = z1;
+            lineArray[lineCounter++] = x2;
+            lineArray[lineCounter++] = y2;
+            lineArray[lineCounter++] = z2;
+          }
+        }
+      }
+
+      connectionGeometry.setDrawRange(0, lineCounter);
+      connectionGeometry.attributes.position.needsUpdate = true;
+
+      renderer.render(scene, camera);
+    }
+
+    // Handle Window Resize
+    window.addEventListener('resize', () => {
+      if (!renderer || !camera) return;
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    try {
+      initThree();
+      animateThree();
+    } catch (e) {
+      console.warn("WebGL Scene error:", e);
+    }
+
+
+    // -------------------------------------------------------------
+    // GSAP ScrollTrigger Animations
+    // -------------------------------------------------------------
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Fade and slide-up Hero Section on entry
+    const heroTimeline = gsap.timeline({ defaults: { ease: 'power3.out', duration: 1 } });
+    heroTimeline
+      .from('nav', { y: -80, opacity: 0, duration: 1.2 })
+      .from('.hero-title', { y: 60, opacity: 0 }, '-=0.8')
+      .from('.hero-desc', { y: 40, opacity: 0 }, '-=0.7')
+      .from('.hero-ctas', { y: 30, opacity: 0 }, '-=0.6')
+      .from('.hero-visual', { scale: 0.9, opacity: 0 }, '-=0.8');
+
+    // Reveal Services Cards on Scroll
+    gsap.from('.service-card', {
+      scrollTrigger: {
+        trigger: '#services',
+        start: 'top 75%',
+        toggleActions: 'play none none none'
+      },
+      y: 50,
+      opacity: 0,
+      stagger: 0.12,
+      duration: 0.8,
+      ease: 'power3.out'
+    });
+
+    // Reveal Stats on Scroll
+    gsap.from('.stat-card', {
+      scrollTrigger: {
+        trigger: '#impact',
+        start: 'top 80%',
+        toggleActions: 'play none none none'
+      },
+      y: 35,
+      scale: 0.95,
+      opacity: 0,
+      stagger: 0.1,
+      duration: 0.8,
+      ease: 'power3.out'
+    });
+
+
+    // -------------------------------------------------------------
+    // Mock Chatbot Simulator Interactive System
+    // -------------------------------------------------------------
+    const chatMessagesContainer = document.getElementById('chat-messages');
+    const typingIndicator = document.getElementById('typing-indicator');
+    const userInputField = document.getElementById('chat-user-input');
+
+    // System prompt responses
+    const botKnowledge = {
+      services: "At SMBots, we construct highly effective chatbot flows including:\n\n1. 🤖 **FAQ automation** (answers store info instantly)\n2. 💬 **WhatsApp Suite integrations**\n3. ⚙️ **E-commerce Sync** (Shopify, WooCommerce API connect)\n\nWe train systems custom-tailored to your enterprise data!",
+      whatsapp: "Yes, fully! 📲 SMBots has deep official WhatsApp Business API credentials. This permits automatic multi-agent support and chatbot integration, with secure customer verification codes, and rich media tools.",
+      savings: "SMEs save on average **70-80% of support costs**! By answering routine questions instantly, staff can focus on operations, reducing the need for late-night manual response tasks.",
+      security: "Extremely secure! 🔒 We protect information with robust TLS encryption, and standard secure RAG databases. We strictly comply with general privacy regulations so your client records remain strictly confidential."
+    };
+
+    function appendMessage(sender, text, isUser) {
+      const bubbleDiv = document.createElement('div');
+      bubbleDiv.className = `flex items-start space-x-3 chat-bubble ${isUser ? 'justify-end' : ''}`;
+
+      const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      const avatarHTML = isUser ? '' : `
+        <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-xs text-brand-glow border border-slate-700 font-bold flex-shrink-0">SM</div>
+      `;
+
+      const contentHTML = `
+        <div class="space-y-1 ${isUser ? 'max-w-[80%] flex flex-col items-end' : 'max-w-[80%]' }">
+          <div class="${isUser ? 'bg-brand-600/35 border border-brand-500/30' : 'bg-slate-800/80'} text-slate-100 p-3.5 rounded-2xl ${isUser ? 'rounded-tr-none' : 'rounded-tl-none'} text-sm leading-relaxed whitespace-pre-wrap">
+            ${text}
+          </div>
+          <span class="text-[10px] text-slate-500 px-1">${currentTime}</span>
+        </div>
+      `;
+
+      bubbleDiv.innerHTML = avatarHTML + contentHTML;
+      chatMessagesContainer.appendChild(bubbleDiv);
+
+      // Auto Scroll
+      chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+    }
+
+    function showTyping(state) {
+      if (state) {
+        typingIndicator.classList.remove('hidden');
+        chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+      } else {
+        typingIndicator.classList.add('hidden');
+      }
+    }
+
+    function respondToQuery(userQuery) {
+      showTyping(true);
+
+      // Select best matching response
+      let replyText = "That's a fantastic query! SMBots can adapt exactly to that usecase. Would you like to consult one of our system engineers directly to map out a solution? Simply submit the contact form below! 🤝";
+
+      const normalized = userQuery.toLowerCase();
+      if (normalized.includes('service') || normalized.includes('offer')) {
+        replyText = botKnowledge.services;
+      } else if (normalized.includes('whatsapp') || normalized.includes('phone') || normalized.includes('message')) {
+        replyText = botKnowledge.whatsapp;
+      } else if (normalized.includes('save') || normalized.includes('cost') || normalized.includes('money')) {
+        replyText = botKnowledge.savings;
+      } else if (normalized.includes('secure') || normalized.includes('safe') || normalized.includes('privacy') || normalized.includes('data')) {
+        replyText = botKnowledge.security;
+      }
+
+      setTimeout(() => {
+        showTyping(false);
+        appendMessage('SMBots', replyText, false);
+      }, 1400);
+    }
+
+    function handleChatSubmit(e) {
+      e.preventDefault();
+      const text = userInputField.value.trim();
+      if (!text) return;
+
+      appendMessage('User', text, true);
+      userInputField.value = '';
+
+      respondToQuery(text);
+    }
+
+    function sendPresetMsg(text) {
+      appendMessage('User', text, true);
+      respondToQuery(text);
+      document.getElementById('chatbot').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function clearChatHistory() {
+      chatMessagesContainer.innerHTML = '';
+      appendMessage('SMBots', "Workspace reset! Let's examine some more automated chatbot operations together. Choose an option on the left or type your custom queries.", false);
+    }
+
+
+    // -------------------------------------------------------------
+    // Contact Form Interactive Success State
+    // -------------------------------------------------------------
+    const contactForm = document.getElementById('contact-form');
+    const contactSuccess = document.getElementById('contact-success');
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      // Emulate API Call
+      gsap.to(contactForm, { opacity: 0, y: -20, duration: 0.3, onComplete: () => {
+        contactForm.classList.add('hidden');
+        contactSuccess.classList.remove('hidden');
+        gsap.fromTo(contactSuccess, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4 });
+      }});
+    }
+
+    function resetContactForm() {
+      gsap.to(contactSuccess, { opacity: 0, y: -20, duration: 0.3, onComplete: () => {
+        contactSuccess.classList.add('hidden');
+        contactForm.reset();
+        contactForm.classList.remove('hidden');
+        gsap.fromTo(contactForm, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4 });
+      }});
+    }
+  </script>
 
 </body>
 </html>
